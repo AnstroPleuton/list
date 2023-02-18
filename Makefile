@@ -20,6 +20,8 @@
 # SOFTWARE.
 #
 # A Minimal Makefile to build the tests
+#
+# NOTE: Static/Dynamic Library support is not yet added
 ################################################################################
 
 CTEST         ?= test.c

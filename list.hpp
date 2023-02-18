@@ -19,16 +19,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// A C++ Wrapper and controller for the Minimal C Dynamic Array
+// A C++ Wrapper and controller for the Minimal C Dynamic List
 //
 // Usage and other information is provided in the README.md file from the
 // repository. Please refer to that to know how to use this library.
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARRAY_HPP
-#define ARRAY_HPP "list.hpp"
+#ifndef LIST_HPP
+#define LIST_HPP "list.hpp"
 
-// This header is just a wrapper for the Minimal C Dynamic Array
+// This header is just a wrapper for the Minimal C Dynamic List
 #include "list.h"
 
 namespace aplib
@@ -80,7 +80,7 @@ public:
 };
 }
 
-#ifdef ARRAY_IMPL
+#ifdef LIST_IMPL
 
 template<typename type_t>
 aplib::list<type_t>::list()
@@ -205,8 +205,8 @@ type_t &aplib::list<type_t>::operator[](size_t index)
 	return at(index);
 }
 
-// ARRAY_IMPL
+// LIST_IMPL
 #endif
 
-// ARRAY_HPP
+// LIST_HPP
 #endif

@@ -19,86 +19,86 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Feature tests for the C++ Wrapper for the Minimal C Array
+// Feature tests for the C++ Wrapper for the Minimal C List
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
-#define ARRAY_IMPL
+#define LIST_IMPL
 #define PRINT_ERROR
 #include "list.hpp"
 
 int main()
 {
 	// Create an list
-	aplib::list<int> myArray;
+	aplib::list<int> myList;
 
 	// Print the size of the list
 	std::cout << "Number of elements in list: "
-	          << myArray.size() << std::endl;
+	          << myList.size() << std::endl;
 
 	// Add an element at the end of an list
-	myArray.insert(myArray.size());
+	myList.insert(myList.size());
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
-	          << myArray.size() << std::endl;
+	          << myList.size() << std::endl;
 
 	// Get the first element of an list
-	int &element = myArray.at(0);
+	int &element = myList.at(0);
 
 	// Alternative way using an operator
-	element = myArray[0];
+	element = myList[0];
 
 	// Set the first element of an list to 20
 	element = 20;
 
 	// Add an element at the beginning of an list
-	myArray.insert(0);
+	myList.insert(0);
 
 	// Set the first element of an list to 40 in a different way
-	myArray.at(0) = 40;
+	myList.at(0) = 40;
 
 	// Alternative way using an operator
-	myArray[0] = 40;
+	myList[0] = 40;
 
 	// Immediately set the added element to 60
-	myArray.insert(1, 60);
+	myList.insert(1, 60);
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
-	          << myArray.size() << std::endl;
+	          << myList.size() << std::endl;
 
 	// Print all the elements from an list
-	for (size_t i = 0; i < myArray.size(); i++) {
+	for (size_t i = 0; i < myList.size(); i++) {
 		std::cout << "Element #" << i << ": "
-		          << myArray[i] << std::endl;
+		          << myList[i] << std::endl;
 	}
 
 	// Print all the elements from an list using ranged for loop
 	int n = 0;
-	for (int &number : myArray) {
+	for (int &number : myList) {
 		std::cout << "Element #" << n++ << ": "
 		          << number << std::endl;
 	}
 
 	// Remove an element from the end of an list
-	myArray.erase(myArray.size() - 1);
+	myList.erase(myList.size() - 1);
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
-	          << myArray.size() << std::endl;
+	          << myList.size() << std::endl;
 
 	// Remove an element from the beginning of an list
-	myArray.erase(0);
+	myList.erase(0);
 
 	// Clear the elements from the list
-	myArray.clear();
+	myList.clear();
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
-	          << myArray.size() << std::endl;
+	          << myList.size() << std::endl;
 
-	// Array is automatically deleted when it goes out of scope
+	// List is automatically deleted when it goes out of scope
 }
 
 // Expected output:

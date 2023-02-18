@@ -19,11 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Feature tests for the Minimal C Array
+ * Feature tests for the Minimal C List
  */
 
 #include <stdio.h>
-#define ARRAY_IMPL
+#define LIST_IMPL
 #define PRINT_ERROR
 #include "list.h"
 
@@ -32,7 +32,7 @@ int main(void)
 	/* Create an list */
 	list_t *my_list = create_list(sizeof (int));
 
-	/* Array creation fail check */
+	/* List creation fail check */
 	if (!my_list) {
 		/* In that case, we end the program */
 		return 1;

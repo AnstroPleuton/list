@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * A Minimal C Dynamic Array
+ * A Minimal C Dynamic List
  * Usage and other information is provided in the README.md file from the
  * repository. Please refer to that to know how to use this library.
  */
 
-#ifndef ARRAY_H
-#define ARRAY_H "list.h"
+#ifndef LIST_H
+#define LIST_H "list.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,9 +39,9 @@
 
 #ifdef PRINT_INFO
 #define PRINT_ENTER(function) \
-	printf("  Info: file: %s, function enters: %s\n", ARRAY_H, function)
+	printf("  Info: file: %s, function enters: %s\n", LIST_H, function)
 #define PRINT_RETURN(function) \
-	printf("  Info: file: %s, function return: %s\n", ARRAY_H, function)
+	printf("  Info: file: %s, function return: %s\n", LIST_H, function)
 #else
 #define PRINT_ENTER(function)
 #define PRINT_RETURN(function)
@@ -60,7 +60,7 @@
 #endif
 
 /* Implement the list code by defining
- * ARRAY_IMPL before including this library */
+ * LIST_IMPL before including this library */
 
 typedef struct {
 	void *data;
@@ -93,7 +93,7 @@ int remove_element(list_t *list, size_t index);
 int clear_list(list_t *list);
 int delete_list(list_t *list);
 
-#ifdef ARRAY_IMPL
+#ifdef LIST_IMPL
 
 list_t *create_list(size_t typesize)
 {
@@ -394,14 +394,14 @@ int delete_list(list_t *list)
 		free(list->base);
 	}
 	free(list);
-	DEBUG("Array deleted");
+	DEBUG("List deleted");
 	PRINT_RETURN("delete_list");
 	return 0;
 }
 
-/* ARRAY_IMPL */
+/* LIST_IMPL */
 #endif
 
-/* ARRAY_H */
+/* LIST_H */
 #endif
 
