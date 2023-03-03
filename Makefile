@@ -20,65 +20,50 @@
 # SOFTWARE.
 #
 # A Minimal Makefile to build the tests
-#
-# NOTE: Static/Dynamic Library support is not yet added
 ################################################################################
-
-CTEST         ?= test.c
-CPPTEST       ?= test.cpp
-
-ifeq ($(OS), Windows_NT)
-	CTESTOUT   ?= ctest.exe
-	CPPTESTOUT ?= cpptest.exe
-else
-	CTESTOUT   ?= ctest.out
-	CPPTESTOUT ?= cpptest.out
-endif
-
-CFLAGS        ?= -Wall -Wextra
-CPPFLAGS      ?= -Wall -Wextra
-
-CINCLUDEDIR   ?= -I.
-CPPINCLUDEDIR ?= -I.
-
-CC            ?= gcc
-CXX           ?= g++
-
-CHEADER       ?= list.h
-CPPHEADER     ?= list.hpp
 
 .PHONY: all clean install uninstall
 
-all: ctest cpptest
+CC = gcc
+CXX = g++
+AR = ar
 
-ctest: $(CTEST) $(CHEADER)
-	$(CC) -o $(CTESTOUT) $(CTEST) $(CINCLUDEDIR) $(CFLAGS)
+all: build static
 
-cpptest: $(CPPTEST) $(CPPHEADER)
-	$(CXX) -o $(CPPTESTOUT) $(CPPTEST) $(CPPINCLUDEDIR) $(CPPFLAGS)
+clean:
+	rm ctest.out
+	rm cpptest.out
+	rm clist.o
+	rm cpplist.o
+	rm liblist.a
+	rm liblistpp.a
 
-# Only works on GNU/Linux systems
-install:
+build: test.c test.cpp list.h list.hpp
+	$(CC) -o ctest.out -Wall -Wextra test.c
+	$(CXX) -o cpptest.out -Wall -Wextra test.cpp
+
+static: list.c list.cpp list.h list.hpp
+	$(CC) -c -o clist.o -Wall -Wextra list.c
+	$(CXX) -c -o cpplist.o -Wall -Wextra list.cpp
+	$(AR) r liblist.a clist.o
+	$(AR) r liblistpp.a cpplist.o
+
+install: static
 ifeq ($(shell whoami), root)
-	cp ./list.h /usr/local/include/list.h
-	cp ./list.hpp /usr/local/include/list.hpp
+	cp list.h /usr/local/include/
+	cp list.hpp /usr/local/include/
+	cp liblist.a /usr/local/lib/
+	cp liblistpp.a /usr/local/lib/
 else
-	echo "Root required, try sudo make install"
+	echo "Root permissions required, try sudo make install"
 endif
 
 uninstall:
 ifeq ($(shell whoami), root)
 	rm /usr/local/include/list.h
 	rm /usr/local/include/list.hpp
+	rm /usr/local/lib/liblist.a
+	rm /usr/local/lib/liblistpp.a
 else
-	echo "Root required, try sudo make uninstall"
-endif
-
-clean:
-ifeq ($(OS), Windows_NT)
-	del ctest.exe
-	del cpptest.exe
-else
-	rm ctest.out
-	rm cpptest.out
+	echo "Root permissions required, try sudo make install"
 endif

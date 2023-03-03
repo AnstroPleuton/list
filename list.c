@@ -19,15 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Feature tests for the Minimal C List
+ * Implementations of Minimal C Linked List in C source file form.
  */
 
-/* Including the list with functino body. */
+/* Including the list with implementations. */
 #define LIST_IMPL
 #include "list.h"
 
 /*
  * The purpose of this file is in creation of static/dynamic library.
- * Or to just include this file in a build for function body.
+ * Or to just include this file in a build for implementations.
  */
-

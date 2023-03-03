@@ -1,5 +1,5 @@
 # list
-A Minimal C Dynamic Array
+A Minimal C Linked List
 
 **Note: This project is said to be complete so only bug fixes and patches are maintained.** <br>
 ...ok small find/replace changes were made... <br>
@@ -7,10 +7,10 @@ A Minimal C Dynamic Array
 ...and it's no longer said to be complete...
 
 # Usage
-Define **ARRAY_IMPL** to implement the function definitions. <br>
+Define **LIST_IMPL** to implement the function definitions. <br>
 Include the library **list.h** to your C/C++ program. <br>
-an list is of type **list_t** and it's used as a *pointer*. <br>
-Use **create_list** function and assign the returning value to list_t\* variable (make sure to make one first). <br>
+an list is of type **struct list_t** and it's used as a *pointer*. <br>
+Use **create_list** function and assign the returning value to list\_t\* variable (make sure to make one first). <br>
 You can add an element to an list using **add_element** function. <br>
 You can remove an element from an list by using **remove_element** function. <br>
 You can access the element from an list by using **get_element** function. <br>
@@ -23,11 +23,11 @@ Cast it to the type that you used to get the value of that element. <br>
 
 # Errors
 Segmentation faults are most probably what you get when there is an error. You might also see a log displaying the error in the terminal. <br>
-If an list failed to be created by the create_list function then it might return NULL.
+If an list failed to be created by the create\_list function then it might return NULL.
 
 # Usage for C++ Wrapper
 The C++ Wrapper is designed to use some object oriented approach similar to vectors. <br>
-Define **ARRAY_IMPL** to implement the function definitions. <br>
+Define **LIST_IMPL** to implement the function definitions. <br>
 Include the library **list.hpp** to your C++ program. <br>
 an list is of type **list** which is a class template. <br>
 Use an list type as **aplib::list\<your_type\>** to use, it will automatically initialize an list. <br>

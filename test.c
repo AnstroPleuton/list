@@ -29,8 +29,8 @@
 
 int main(void)
 {
-	/* Create an list */
-	list_t *my_list = create_list(sizeof (int));
+	/* Create a list */
+	struct list_t *my_list = create_list(sizeof (int));
 
 	/* List creation fail check */
 	if (!my_list) {
@@ -42,8 +42,8 @@ int main(void)
 	printf("Number of elements in list: %lu\n",
 	       get_list_size(my_list));
 
-	/* Add an element at the end of an list */
-	element_t *element = add_element(my_list, get_list_size(my_list));
+	/* Add an element at the end of a list */
+	struct element_t *element = add_element(get_list_size(my_list), my_list);
 
 	/* While adding an element, we can check for errors */
 	if (!element) {
@@ -55,8 +55,8 @@ int main(void)
 	printf("Number of elements in list: %lu\n",
 	       get_list_size(my_list));
 
-	/* Get the first element of an list */
-	element = get_element(my_list, 0);
+	/* Get the first element of a list */
+	element = get_element(0, my_list);
 
 	/* It is possible to get error when getting an element */
 	if (!element) {
@@ -64,11 +64,11 @@ int main(void)
 		return 3;
 	}
 
-	/* Set the first element of an list to 20 */
+	/* Set the first element of a list to 20 */
 	*(int *) element->data = 20;
 
-	/* Add an element at the beginning of an list */
-	element = add_element(my_list, 0);
+	/* Add an element at the beginning of a list */
+	element = add_element(0, my_list);
 
 	/* You get the idea... */
 	if (!element) {
@@ -78,24 +78,24 @@ int main(void)
 
 	/* The following two functions are immune to errors */
 
-	/* Set the first element of an list to 40 in a different way */
-	*(int *) get_element(my_list, 0)->data = 40;
+	/* Set the first element of a list to 40 in a different way */
+	*(int *) get_element(0, my_list)->data = 40;
 
 	/* Immediately set the added element to 60 */
-	*(int *) add_element(my_list, 1)->data = 60;
+	*(int *) add_element(1, my_list)->data = 60;
 
 	/* Print the size of the list again */
 	printf("Number of elements in list: %lu\n",
 	       get_list_size(my_list));
 
-	/* Print all the elements from an list */
+	/* Print all the elements from a list */
 	for (size_t i = 0; i < get_list_size(my_list); i++) {
 		printf("Element #%lu: %i\n", i,
-		       *(int *) get_element(my_list, i)->data);
+		       *(int *) get_element(i, my_list)->data);
 	}
 
-	/* Remove an element from the end of an list with error checking */
-	if (remove_element(my_list, get_list_size(my_list) - 1)) {
+	/* Remove an element from the end of a list with error checking */
+	if (remove_element(get_list_size(my_list) - 1, my_list)) {
 		/* This means the function failed to remove an element */
 		return 5;
 	}
@@ -106,12 +106,12 @@ int main(void)
 
 	/* The following function is immune to errors */
 
-	/* Remove an element from the beginning of an list */
-	remove_element(my_list, 0);
+	/* Remove an element from the beginning of a list */
+	remove_element(0, my_list);
 
 	/* Clear the elements from the list with error checking */
 	if (clear_list(my_list)) {
-		/* This means the function failed to clear an list */
+		/* This means the function failed to clear a list */
 		return 6;
 	}
 
@@ -119,9 +119,9 @@ int main(void)
 	printf("Number of elements in list: %lu\n",
 	       get_list_size(my_list));
 
-	/* Delete an list with error checking */
+	/* Delete a list with error checking */
 	if (delete_list(my_list)) {
-		/* Failed to delete an list... */
+		/* Failed to delete a list... */
 		return 7;
 	}
 	return 0;

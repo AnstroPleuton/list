@@ -29,33 +29,33 @@
 
 int main()
 {
-	// Create an list
+	// Create a list
 	aplib::list<int> myList;
 
 	// Print the size of the list
 	std::cout << "Number of elements in list: "
 	          << myList.size() << std::endl;
 
-	// Add an element at the end of an list
+	// Add an element at the end of a list
 	myList.insert(myList.size());
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
 	          << myList.size() << std::endl;
 
-	// Get the first element of an list
+	// Get the first element of a list
 	int &element = myList.at(0);
 
 	// Alternative way using an operator
 	element = myList[0];
 
-	// Set the first element of an list to 20
+	// Set the first element of a list to 20
 	element = 20;
 
-	// Add an element at the beginning of an list
+	// Add an element at the beginning of a list
 	myList.insert(0);
 
-	// Set the first element of an list to 40 in a different way
+	// Set the first element of a list to 40 in a different way
 	myList.at(0) = 40;
 
 	// Alternative way using an operator
@@ -68,27 +68,27 @@ int main()
 	std::cout << "Number of elements in list: "
 	          << myList.size() << std::endl;
 
-	// Print all the elements from an list
+	// Print all the elements from a list
 	for (size_t i = 0; i < myList.size(); i++) {
 		std::cout << "Element #" << i << ": "
 		          << myList[i] << std::endl;
 	}
 
-	// Print all the elements from an list using ranged for loop
+	// Print all the elements from a list using ranged for loop
 	int n = 0;
 	for (int &number : myList) {
 		std::cout << "Element #" << n++ << ": "
 		          << number << std::endl;
 	}
 
-	// Remove an element from the end of an list
+	// Remove an element from the end of a list
 	myList.erase(myList.size() - 1);
 
 	// Print the size of the list again
 	std::cout << "Number of elements in list: "
 	          << myList.size() << std::endl;
 
-	// Remove an element from the beginning of an list
+	// Remove an element from the beginning of a list
 	myList.erase(0);
 
 	// Clear the elements from the list

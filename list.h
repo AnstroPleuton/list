@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * A Minimal C Dynamic List
- * Usage and other information is provided in the README.md file from the
- * repository. Please refer to that to know how to use this library.
+ * A Minimal C Linked List
+ *   Usage and other information is provided in the README.md file from the
+ *   repository. Please refer to that to know how to use this library.
  */
 
 #ifndef LIST_H
@@ -62,60 +62,60 @@
 /* Implement the list code by defining
  * LIST_IMPL before including this library */
 
-typedef struct {
+struct element_t{
 	void *data;
 	void *next;
-} element_t;
+};
 
-typedef struct {
+struct list_t {
 	/* The base does not contain an element,
 	 * the next of the base is the index of 0 */
-	element_t *base;
+	struct element_t *base;
 	size_t size;
 	size_t typesize;
-} list_t;
+};
 
-list_t *create_list(size_t typesize);
-element_t *get_element(list_t *list, size_t index);
+struct list_t *create_list(size_t typesize);
+struct element_t *get_element(size_t index, struct list_t *list);
 
-int update_list_size(list_t *list);
-size_t get_list_size(list_t *list);
+int update_list_size(struct list_t *list);
+size_t get_list_size(struct list_t *list);
 
 /* These functions are not supposed to be used externally */
-element_t *create_element(size_t typesize);
-int delete_element(element_t *element);
+struct element_t *create_element(size_t typesize);
+int delete_element(struct element_t *element);
 
 /* You can add element at the end of the
  * list by giving it the size of the list */
-element_t *add_element(list_t *list, size_t index);
-int remove_element(list_t *list, size_t index);
+struct element_t *add_element(size_t index, struct list_t *list);
+int remove_element(size_t index, struct list_t *list);
 
-int clear_list(list_t *list);
-int delete_list(list_t *list);
+int clear_list(struct list_t *list);
+int delete_list(struct list_t *list);
 
 #ifdef LIST_IMPL
 
-list_t *create_list(size_t typesize)
+struct list_t *create_list(size_t typesize)
 {
 	PRINT_ENTER("create_list");
-	DEBUG("Creating an list");
-	list_t *list = (list_t *) malloc(sizeof(list_t));
+	DEBUG("Creating a list");
+	struct list_t *list = (struct list_t *) malloc(sizeof(list_t));
 
 	if (!list) {
-		ERROR("Unable to allocate memory for an list");
+		ERROR("Unable to allocate memory for a list");
 		return NULL;
 	}
 
 	list->size = 0;
 	list->typesize = typesize;
 
-	DEBUG("Successfully created an list");
+	DEBUG("Successfully created a list");
 	DEBUG("Allocating memory for the base");
 
-	list->base = (element_t *) malloc(sizeof(element_t));
+	list->base = (struct element_t *) malloc(sizeof(element_t));
 
 	if (!list->base) {
-		ERROR("Unable to allocate memory for the base of an list");
+		ERROR("Unable to allocate memory for the base of a list");
 		return NULL;
 	}
 
@@ -127,10 +127,10 @@ list_t *create_list(size_t typesize)
 	return list;
 }
 
-element_t *get_element(list_t *list, size_t index)
+struct element_t *get_element(size_t index, struct list_t *list)
 {
 	PRINT_ENTER("get_element");
-	element_t *element = NULL;
+	struct element_t *element = NULL;
 
 	if (!list) {
 		ERROR("Unexpected null list");
@@ -143,7 +143,7 @@ element_t *get_element(list_t *list, size_t index)
 	/* Note, I am not using 'i <= index' because I want
 	 * the size to overflow in case the index was -1 */
 	for (size_t i = 0; i < (index + 1); i++) {
-		element = (element_t *) element->next;
+		element = (struct element_t *) element->next;
 
 		if (!element) {
 			ERROR("Element does not exist");
@@ -157,10 +157,10 @@ element_t *get_element(list_t *list, size_t index)
 
 
 
-int update_list_size(list_t *list)
+int update_list_size(struct list_t *list)
 {
 	PRINT_ENTER("update_list_size");
-	element_t *element = NULL;
+	struct element_t *element = NULL;
 	size_t size = 0;
 
 	if (!list) {
@@ -168,22 +168,22 @@ int update_list_size(list_t *list)
 		return 1;
 	}
 
-	DEBUG("Calculating an list size");
+	DEBUG("Calculating a list size");
 	element = list->base;
 
 	while (element) {
-		element = (element_t *) element->next;
+		element = (struct element_t *) element->next;
 		size++;
 	}
 
 	/* The base is not considered as an element */
 	--size;
-	DEBUG("Successfully calculated the size of an list");
+	DEBUG("Successfully calculated the size of a list");
 	PRINT_RETURN("update_list_size");
 	return 0;
 }
 
-size_t get_list_size(list_t *list)
+size_t get_list_size(struct list_t *list)
 {
 	PRINT_ENTER("get_list_size");
 	if (!list) {
@@ -200,11 +200,11 @@ size_t get_list_size(list_t *list)
 
 
 
-element_t *create_element(size_t typesize)
+struct element_t *create_element(size_t typesize)
 {
 	PRINT_ENTER("create_element");
 	DEBUG("Creating an element");
-	element_t *element = (element_t *) malloc(sizeof(element_t));
+	struct element_t *element = (struct element_t *) malloc(sizeof(element_t));
 
 	if (!element) {
 		ERROR("Failed to allocate memory for an element");
@@ -226,7 +226,7 @@ element_t *create_element(size_t typesize)
 	return element;
 }
 
-int delete_element(element_t *element)
+int delete_element(struct element_t *element)
 {
 	PRINT_ENTER("delete_element");
 	if (!element) {
@@ -244,12 +244,12 @@ int delete_element(element_t *element)
 
 
 
-element_t *add_element(list_t *list, size_t index)
+struct element_t *add_element(size_t index, struct list_t *list)
 {
 	PRINT_ENTER("add_element");
-	element_t *new_element = NULL;
-	element_t *prev = NULL;
-	element_t *temp = NULL;
+	struct element_t *new_element = NULL;
+	struct element_t *prev = NULL;
+	struct element_t *temp = NULL;
 
 	if (!list) {
 		ERROR("Unexpected null list");
@@ -261,27 +261,27 @@ element_t *add_element(list_t *list, size_t index)
 		return NULL;
 	}
 	if (index > list->size) {
-		ERROR("Index larger than the (size + 1) of an list");
+		ERROR("Index larger than the (size + 1) of a list");
 		return NULL;
 	}
 
-	DEBUG("Adding an element to an list");
-	prev = get_element(list, index - 1);
+	DEBUG("Adding an element to a list");
+	prev = get_element(index - 1, list);
 	new_element = create_element(list->typesize);
 
 	/* There can't be no previous because the base should exist */
 	if (!prev) {
 		ERROR("Cannot find the previous element "
-		      "or the base of an list");
+		      "or the base of a list");
 		return NULL;
 	}
 	if (!new_element) {
 		ERROR("Cannot allocate memory for an "
-		      "element to be added to an list");
+		      "element to be added to a list");
 		return NULL;
 	}
 
-	temp = (element_t *) prev->next;
+	temp = (struct element_t *) prev->next;
 	prev->next = (void *) new_element;
 	new_element->next = (void *) temp;
 
@@ -292,12 +292,12 @@ element_t *add_element(list_t *list, size_t index)
 	return new_element;
 }
 
-int remove_element(list_t *list, size_t index)
+int remove_element(size_t index, struct list_t *list)
 {
 	PRINT_ENTER("remove_element");
-	element_t *element = NULL;
-	element_t *prev = NULL;
-	element_t *next = NULL;
+	struct element_t *element = NULL;
+	struct element_t *prev = NULL;
+	struct element_t *next = NULL;
 
 	if (!list) {
 		ERROR("Unexpected null list");
@@ -308,26 +308,26 @@ int remove_element(list_t *list, size_t index)
 		return 2;
 	}
 	if (index >= list->size) {
-		ERROR("Index larger than the size of an list");
+		ERROR("Index larger than the size of a list");
 		return 3;
 	}
 
 	DEBUG("Removing an element");
-	element = get_element(list, index);
+	element = get_element(index, list);
 	if (!element) {
 		ERROR("Cannot find an element");
 		return 4;
 	}
 
-	prev = get_element(list, index - 1);
+	prev = get_element(index - 1, list);
 
 	/* To prevent unnecessary error logs, I used an 'if' check */
 	if (index < list->size - 1) {
-		next = get_element(list, index + 1);
+		next = get_element(index + 1, list);
 	}
 	if (!prev) {
 		ERROR("Cannot find the previous element "
-		      "or the base of an list");
+		      "or the base of a list");
 		return 5;
 	}
 
@@ -349,7 +349,7 @@ int remove_element(list_t *list, size_t index)
 
 
 
-int clear_list(list_t *list)
+int clear_list(struct list_t *list)
 {
 	PRINT_ENTER("clear_list");
 	if (!list) {
@@ -357,7 +357,7 @@ int clear_list(list_t *list)
 		return 1;
 	}
 
-	DEBUG("Clearing an list");
+	DEBUG("Clearing a list");
 	if (update_list_size(list)) {
 		ERROR("Unable to update list size");
 		return 2;
@@ -369,15 +369,15 @@ int clear_list(list_t *list)
 	}
 
 	for (int i = list->size - 1; i >= 0; i--) {
-		remove_element(list, i);
+		remove_element(i, list);
 	}
 
-	DEBUG("Cleared an list");
+	DEBUG("Cleared a list");
 	PRINT_RETURN("clear_list");
 	return 0;
 }
 
-int delete_list(list_t *list)
+int delete_list(struct list_t *list)
 {
 	PRINT_ENTER("delete_list");
 	if (!list) {
@@ -385,9 +385,9 @@ int delete_list(list_t *list)
 		return 1;
 	}
 
-	DEBUG("Deleting an list");
+	DEBUG("Deleting a list");
 	if (clear_list(list)) {
-		ERROR("Unable to clear an list");
+		ERROR("Unable to clear a list");
 		return 2;
 	}
 	if (list->base) {
@@ -404,4 +404,3 @@ int delete_list(list_t *list)
 
 /* LIST_H */
 #endif
-

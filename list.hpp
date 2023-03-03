@@ -19,16 +19,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// A C++ Wrapper and controller for the Minimal C Dynamic List
-//
-// Usage and other information is provided in the README.md file from the
-// repository. Please refer to that to know how to use this library.
+// A C++ Wrapper and controller for the Minimal C Linked List
+//   Usage and other information is provided in the README.md file from the
+//   repository. Please refer to that to know how to use this library.
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef LIST_HPP
 #define LIST_HPP "list.hpp"
 
-// This header is just a wrapper for the Minimal C Dynamic List
+// This header is just a wrapper for the Minimal C Linked List
 #include "list.h"
 
 namespace aplib
@@ -97,21 +96,21 @@ aplib::list<type_t>::~list()
 template<typename type_t>
 aplib::list<type_t> &aplib::list<type_t>::insert(size_t index)
 {
-	add_element(internal_list, index);
+	add_element(index, internal_list);
 	return *this;
 }
 
 template<typename type_t>
 aplib::list<type_t> &aplib::list<type_t>::insert(size_t index, type_t value)
 {
-	*(type_t *) add_element(internal_list, index)->data = value;
+	*(type_t *) add_element(index, internal_list)->data = value;
 	return *this;
 }
 
 template<typename type_t>
 aplib::list<type_t> &aplib::list<type_t>::erase(size_t index)
 {
-	remove_element(internal_list, index);
+	remove_element(index, internal_list);
 	return *this;
 }
 
@@ -124,7 +123,7 @@ size_t aplib::list<type_t>::size()
 template<typename type_t>
 type_t &aplib::list<type_t>::at(size_t index)
 {
-	return *(type_t *) get_element(internal_list, index)->data;
+	return *(type_t *) get_element(index, internal_list)->data;
 }
 
 template<typename type_t>
@@ -180,7 +179,7 @@ bool aplib::list<type_t>::iterator::operator!=(const
 template<typename type_t>
 type_t &aplib::list<type_t>::iterator::operator*()
 {
-	return *(type_t *) get_element(list, index)->data;
+	return *(type_t *) get_element(index, list)->data;
 }
 
 template<typename type_t>
