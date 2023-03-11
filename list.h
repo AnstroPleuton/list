@@ -99,7 +99,7 @@ struct list_t *create_list(size_t typesize)
 {
 	PRINT_ENTER("create_list");
 	DEBUG("Creating a list");
-	struct list_t *list = (struct list_t *) malloc(sizeof(list_t));
+	struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
 
 	if (!list) {
 		ERROR("Unable to allocate memory for a list");
@@ -112,7 +112,7 @@ struct list_t *create_list(size_t typesize)
 	DEBUG("Successfully created a list");
 	DEBUG("Allocating memory for the base");
 
-	list->base = (struct element_t *) malloc(sizeof(element_t));
+	list->base = (struct element_t *) malloc(sizeof(struct element_t));
 
 	if (!list->base) {
 		ERROR("Unable to allocate memory for the base of a list");
@@ -204,7 +204,7 @@ struct element_t *create_element(size_t typesize)
 {
 	PRINT_ENTER("create_element");
 	DEBUG("Creating an element");
-	struct element_t *element = (struct element_t *) malloc(sizeof(element_t));
+	struct element_t *element = (struct element_t *) malloc(sizeof(struct element_t));
 
 	if (!element) {
 		ERROR("Failed to allocate memory for an element");
