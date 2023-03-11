@@ -10,14 +10,14 @@ A Minimal C Linked List
 Define **LIST_IMPL** to implement the function definitions. <br>
 Include the library **list.h** to your C/C++ program. <br>
 an list is of type **struct list_t** and it's used as a *pointer*. <br>
-Use **create_list** function and assign the returning value to list\_t\* variable (make sure to make one first). <br>
+Use **create_list** function and assign the returning value to **struct list\_t\*** variable (make sure to make one first). <br>
 You can add an element to an list using **add_element** function. <br>
 You can remove an element from an list by using **remove_element** function. <br>
 You can access the element from an list by using **get_element** function. <br>
 Make sure to delete an list once you are done with it using **delete_list** function. Don't worry, it will clear an list automatically! <br>
 
 # Access elements
-To access an elements of an list, use the function **get_element**, it will return a **element_t** pointer to an element <br>.
+To access an elements of an list, use the function **get_element**, it will return a **struct element_t** pointer to an element <br>.
 You can get the void pointer to the data of an element using the **->** operator followed by **data**. <br>
 Cast it to the type that you used to get the value of that element. <br>
 
