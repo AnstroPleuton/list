@@ -41,9 +41,11 @@ struct list_t {
 	/* The base does not contain an element,
 	 * the next of the base is the index of 0 */
 	struct element_t *base;
+	/* Update the size of the list when modifying externally */
 	size_t size;
 	size_t typesize;
 };
+
 
 struct list_t *create_list(size_t typesize);
 struct element_t *get_element(size_t index, struct list_t *list);
@@ -182,9 +184,6 @@ struct element_t *add_element(size_t index, struct list_t *list)
 	if (!list) {
 		return NULL;
 	}
-	if (update_list_size(list)) {
-		return NULL;
-	}
 	if (index > list->size) {
 		return NULL;
 	}
@@ -216,9 +215,6 @@ int remove_element(size_t index, struct list_t *list)
 
 	if (!list) {
 		return 1;
-	}
-	if (update_list_size(list)) {
-		return 2;
 	}
 	if (index >= list->size) {
 		return 3;
@@ -256,9 +252,6 @@ int clear_list(struct list_t *list)
 {
 	if (!list) {
 		return 1;
-	}
-	if (update_list_size(list)) {
-		return 2;
 	}
 	if (list->size == 0) {
 		/* This is not considered an error */
