@@ -24,7 +24,6 @@
 
 #include <stdio.h>
 #define LIST_IMPL
-#define PRINT_ERROR
 #include "list.h"
 
 int main(void)

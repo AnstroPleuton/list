@@ -24,7 +24,6 @@
 
 #include <iostream>
 #define LIST_IMPL
-#define PRINT_ERROR
 #include "list.hpp"
 
 int main()
